@@ -1,0 +1,15 @@
+Prototype (Structure of Project)
+Features:
+1. Add an expense (amount, category, date
+note).
+2. View allexpenses
+3. Calculate total expenses
+4. Save expenses in a file (so data is not
+lost).
+Classes:
+Expense - Represents a single expense
+(amount, category, date, note)
+ExpenseManager - Stores a list of
+expenses and methods to add/view/
+calculate total
+Main - Runs the program with a menu
