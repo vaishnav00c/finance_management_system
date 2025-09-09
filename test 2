@@ -1,0 +1,56 @@
+// ExpenseTracker.java
+
+import java.time.LocalDate;
+import java.util.List;
+import java.util.stream.Collectors;
+
+public class ExpenseTracker {
+
+    private List<Expense> expenses;
+
+    public ExpenseTracker() {
+        this.expenses = DataHandler.loadExpenses();
+    }
+
+    public void addExpense(String description, double amount, LocalDate date, String category) {
+        Expense newExpense = new Expense(description, amount, date, category);
+        expenses.add(newExpense);
+        DataHandler.saveExpenses(expenses);
+        System.out.println("Expense added successfully!");
+    }
+
+    public void viewAllExpenses() {
+        if (expenses.isEmpty()) {
+            System.out.println("No expenses recorded yet.");
+            return;
+        }
+        System.out.println("\n--- All Expenses ---");
+        expenses.forEach(System.out::println);
+        System.out.println("--------------------");
+    }
+
+    public void viewExpensesByCategory(String category) {
+        List<Expense> filteredExpenses = expenses.stream()
+                .filter(e -> e.getCategory().equalsIgnoreCase(category))
+                .collect(Collectors.toList());
+
+        if (filteredExpenses.isEmpty()) {
+            System.out.println("No expenses found for category: " + category);
+            return;
+        }
+        System.out.println("\n--- Expenses for " + category + " ---");
+        filteredExpenses.forEach(System.out::println);
+        System.out.println("--------------------");
+    }
+
+    public double getTotalExpenses() {
+        return expenses.stream()
+                .mapToDouble(Expense::getAmount)
+                .sum();
+    }
+
+    // Method to save expenses when the application exits
+    public void saveOnExit() {
+        DataHandler.saveExpenses(expenses);
+    }
+}
