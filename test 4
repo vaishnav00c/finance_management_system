@@ -1,0 +1,42 @@
+// Expense.java
+
+import java.io.Serializable;
+import java.time.LocalDate;
+
+public class Expense implements Serializable {
+
+    private static final long serialVersionUID = 1L; // Recommended for Serializable classes
+    private String description;
+    private double amount;
+    private LocalDate date;
+    private String category;
+
+    public Expense(String description, double amount, LocalDate date, String category) {
+        this.description = description;
+        this.amount = amount;
+        this.date = date;
+        this.category = category;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public double getAmount() {
+        return amount;
+    }
+
+    public LocalDate getDate() {
+        return date;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("Date: %s, Description: %s, Amount: $%.2f, Category: %s",
+                date, description, amount, category);
+    }
+}
