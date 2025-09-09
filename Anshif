@@ -1,0 +1,34 @@
+// DataHandler.java
+
+import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
+
+public class DataHandler {
+
+    private static final String FILE_NAME = "expenses.ser";
+
+    public static void saveExpenses(List<Expense> expenses) {
+        try (FileOutputStream fileOut = new FileOutputStream(FILE_NAME);
+             ObjectOutputStream out = new ObjectOutputStream(fileOut)) {
+            out.writeObject(expenses);
+            System.out.println("Expenses saved to " + FILE_NAME);
+        } catch (IOException i) {
+            System.out.println("Error saving expenses: " + i.getMessage());
+        }
+    }
+
+    public static List<Expense> loadExpenses() {
+        List<Expense> expenses = new ArrayList<>();
+        try (FileInputStream fileIn = new FileInputStream(FILE_NAME);
+             ObjectInputStream in = new ObjectInputStream(fileIn)) {
+            expenses = (List<Expense>) in.readObject();
+            System.out.println("Expenses loaded from " + FILE_NAME);
+        } catch (FileNotFoundException f) {
+            System.out.println("No saved expenses file found. Starting with an empty list.");
+        } catch (IOException | ClassNotFoundException i) {
+            System.out.println("Error loading expenses: " + i.getMessage());
+        }
+        return expenses;
+    }
+}
