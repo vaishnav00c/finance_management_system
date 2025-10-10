@@ -81,5 +81,5 @@ public class Main {
         System.out.print("Enter category to view: ");
         String category = scanner.nextLine();
         tracker.viewExpensesByCategory(category);
-    }
+    
 }
